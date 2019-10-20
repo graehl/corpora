@@ -43,7 +43,7 @@ def csvout(outf, lts, tsv=False, encoding='utf-8'):
     for label, text, i in lts:
         nexti = i
         if tsv:
-            outf.write(str(label) + '\t' + text + '\n')
+            outf.write('%s\t%s\n' % (text.replace('\t', ' '), label))
         else:
             print(csv_quoted_fields((str(i - 1), str(label), text)), file=outf)
     return nexti
