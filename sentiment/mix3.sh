@@ -10,14 +10,14 @@ detok() {
     python detok.py
 }
 d=mix3.$nwp
-ln -s $d mix3
+ln -sf $d mix3
 mkdir -p $d
 train=$d/train.tsv
 dev=$d/dev.tsv
 nwp=$((nwp-devwp))
+set -x
 (cat sst3/train.tsv
  detok imdb/train.tsv
  head -n $nwp < $wpf | perl -pe 'while(<>) { chomp; print "$_\t2\n" }'
 ) > $train
-if [[ $devwp -gt 0 ]] ; then
 (cat sst3/dev.tsv; tail -n $devwp < $wpf) > $dev
