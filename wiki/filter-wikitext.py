@@ -22,12 +22,18 @@ def main(minlen=40, first=True):
     start = True
     title = ''
     i = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8', errors='ignore')
+    n = 0
     for line in i:
         m = doc.match(line)
         if m:
             start = True
             title = m.group(1)
             if title:
+                n += 1
+                if n % 100 = 0:
+                    sys.stderr.write('\n'+title)
+                else:
+                    sys.stderr.write('.')
                 log(title)
             continue
         if first and not start: continue
@@ -36,6 +42,7 @@ def main(minlen=40, first=True):
         line = blanks.sub(' ', line)
         if len(line) < minlen: continue
         print(line)
+        sys.stderr.write('\n'
 
 
 if __name__ == "__main__":
