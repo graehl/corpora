@@ -1,6 +1,7 @@
 export PYTHONIOENCODING=utf-8
 nwp=${1:-10000}
 devwp=${2:-1000}
+devimdb=${3:-2000}
 nwptotal=$((nwp+devwp))
 ./sst3.sh
 [[ -d imdb ]] || python ./imdb.py
@@ -21,4 +22,4 @@ echo $wpf
  detok imdb/train.tsv
  head -n $nwp < $wpf | perl -pe 'while(<>) { chomp; print "$_\t2\n" }'
 ) > $train
-(cat sst3/dev.tsv; tail -n $devwp < $wpf) > $dev
+(cat sst3/dev.tsv; detok imdb/dev.tsv | head -n $devimdb; tail -n $devwp < $wpf) > $dev
