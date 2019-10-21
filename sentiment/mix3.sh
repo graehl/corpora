@@ -6,7 +6,7 @@ nwptotal=$((nwp+devwp))
 [[ -d imdb ]] || python ./imdb.py
 detok() {
     for f in "$@"; do
-        python detok.py < $f
+        python detok.py < "$f"
     done
 }
 d=mix3.$nwp
