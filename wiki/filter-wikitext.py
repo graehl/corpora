@@ -30,7 +30,7 @@ def main(minlen=40, first=True):
             title = m.group(1)
             if title:
                 n += 1
-                if n % 100 = 0:
+                if n % 100 == 0:
                     sys.stderr.write('\n'+title)
                 else:
                     sys.stderr.write('.')
