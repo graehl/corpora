@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import os
 import os.path
@@ -36,7 +36,7 @@ def main(outd='imdb', download='aclImdb', devtexturl=''):
       outf = open(outfn, 'w', encoding='utf-8')
       print('sentence\tlabel', file=outf)
       log(outfn)
-      if corpout == 'dev' and devtexturl is not None:
+      if corpout == 'dev' and devtexturl:
           log(devtexturl)
           import urllib.request
           for line in urllib.request.urlopen(devtexturl):
@@ -49,6 +49,6 @@ def main(outd='imdb', download='aclImdb', devtexturl=''):
                   with open(fn, 'r', encoding='utf-8') as f:
                       print('%s\t%s' % (pp(f.read().replace('\n', '')), label), file=outf)
 
+
 if __name__ == "__main__":
     plac.call(main)
-    callmain()
