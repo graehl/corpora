@@ -4,18 +4,18 @@ devwp=${2:-1000}
 nwptotal=$((nwp+devwp))
 ./sst3.sh
 [[ -d imdb ]] || python ./imdb.py
-wpf=`../wiki/wiki-first.sh $nwptotal`
-echo $wpf
 detok() {
     python detok.py
 }
-d=mix3.$nwp
-ln -sf $d mix3
-mkdir -p $d
 train=$d/train.tsv
 dev=$d/dev.tsv
 nwp=$((nwp-devwp))
+d=mix3.$nwp
+ln -sf $d mix3
+mkdir -p $d
 set -x
+wpf=`../wiki/wiki-first.sh $nwptotal`
+echo $wpf
 (cat sst3/train.tsv
  detok imdb/train.tsv
  head -n $nwp < $wpf | perl -pe 'while(<>) { chomp; print "$_\t2\n" }'
