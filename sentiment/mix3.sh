@@ -2,13 +2,16 @@ export PYTHONIOENCODING=utf-8
 nwp=${1:-10000}
 devwp=${2:-1000}
 devimdb=${3:-5000}
+ntweets=${4:-10000}
+devtweets=${5:-1000}
+nlines() {
+    perl -ne '++$n;END{print "$n"}' "$@"
+}
 nwptotal=$((nwp+devwp))
 ./sst3.sh
 [[ -d imdb ]] || python ./imdb.py
 detok() {
-    for f in "$@"; do
-        python detok.py < "$f"
-    done
+    cat "$@" | python detok.py
 }
 d=mix3.$nwp
 train=$d/train.tsv
@@ -18,9 +21,10 @@ mkdir -p $d
 set -x
 wpf=`../wiki/wiki-first.sh $nwptotal`
 echo $wpf
-(cat sst3/train.tsv
+[[ -d semeval17 ]] || ./semeval17.sh
+( cat semeval17/train.tsv
  detok imdb/train.tsv
- head -n $nwp < $wpf | perl -pe 'while(<>) { chomp; print "$_\t2\n" }'
-) > $train
-(cat sst3/dev.tsv; detok imdb/dev.tsv | head -n $devimdb) > $dev
+ cat sst3/train.tsv
+ head -n $nwp < $wpf | perl -pe 'while(<>) { chomp; print "$_\t2\n" }' ) > $train
+(cat semeval17/dev.tsv; head -n $devimdb < imdb/dev.tsv | detok ; cat sst3/dev.tsv) > $dev
 # ; tail -n $devwp < $wpf
