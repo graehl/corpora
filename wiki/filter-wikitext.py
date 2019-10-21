@@ -42,7 +42,7 @@ def main(minlen=40, first=True):
         line = blanks.sub(' ', line)
         if len(line) < minlen: continue
         print(line)
-        sys.stderr.write('\n'
+        sys.stderr.write('\n')
 
 
 if __name__ == "__main__":
