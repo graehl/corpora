@@ -34,7 +34,6 @@ def main(minlen=40, first=True):
                     sys.stderr.write('\n'+title)
                 else:
                     sys.stderr.write('.')
-                log(title)
             continue
         if first and not start: continue
         start = False
