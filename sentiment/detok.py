@@ -15,4 +15,5 @@ def detok(x):
 
 
 for l in sys.stdin:
-    print(detok(l.split()))
+    fields = l.split('\t')
+    print('\t'.join(detok(x.split()) for x in fields))
