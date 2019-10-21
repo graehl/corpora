@@ -32,7 +32,7 @@ def main(minlen=40, first=True):
             continue
         if first and not start: continue
         start = False
-        line.strip()
+        line = line.strip()
         line = blanks.sub(' ', line)
         if len(line) < minlen: continue
         print(line)

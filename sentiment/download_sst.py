@@ -31,7 +31,7 @@ def lts(sst, key, fine, neutrals=True, nexti=0, minlen=0):
                 continue
             if not fine:
                 if not neutrals and label == 2: continue
-                label = 'NEGATIVE' if label < 2 else 'NEUTRAL' if label == 2 else 'POSITIVE'
+                label = 0 if label < 2 else 2 if label == 2 else 1
             yield (label, text, i)
 
 
@@ -55,7 +55,7 @@ def log(x):
 
 @plac.annotations(
     fine=("fine-grained (0-4 including neutral) output", "option", "f", bool),
-    neutrals=("0-1 => 0, 3-4 => 4", "option", "n", bool),
+    neutrals=("0-1 => 0, 3-4 => 1, 2 => 2", "option", "n", bool),
     minlen=("min length in chars", "option", "l", int),
     outdir=("outdir/train.csv, outdir/test.csv", "option", "o", str),
     mergedev=("merge dev, test into train", "option", "m", bool),
