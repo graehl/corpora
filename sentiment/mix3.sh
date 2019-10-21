@@ -1,7 +1,6 @@
 export PYTHONIOENCODING=utf-8
 nwp=${1:-10000}
 devwp=${2:-1000}
-#nwp=$((nwp+devwp))
 nwptotal=$((nwp+devwp))
 ./sst3.sh
 [[ -d imdb ]] || python ./imdb.py
