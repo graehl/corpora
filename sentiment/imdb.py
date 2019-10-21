@@ -18,8 +18,9 @@ def log(x):
     download=("aclImdb download dir", "option", "d", str),
     outd=("output directory for train.tsv dev.tsv", "option", "o", str),
     devtexturl=("alternate dev text (no labels) url", "option", "u", str),
+    header=("sentence\tlabel header line", "option", "H", bool),
     )
-def main(outd='imdb', download='aclImdb', devtexturl=''):
+def main(outd='imdb', download='aclImdb', devtexturl='', header=False):
   tarf = 'aclImdb_v1.tar.gz'
   assert os.path.isfile(tarf) or subprocess.call(['wget', 'https://ai.stanford.edu/~amaas/data/sentiment/%s' % tarf]) == 0
   assert os.path.isdir(download) or subprocess.call(['tar', 'xzf', tarf]) == 0
@@ -34,7 +35,8 @@ def main(outd='imdb', download='aclImdb', devtexturl=''):
   for corpin, corpout in (('test', 'dev'), ('train', 'train'), ):
       outfn = '%s/%s.tsv' % (outd, corpout)
       outf = open(outfn, 'w', encoding='utf-8')
-      print('sentence\tlabel', file=outf)
+      if header:
+          print('sentence\tlabel', file=outf)
       log(outfn)
       if corpout == 'dev' and devtexturl:
           log(devtexturl)
