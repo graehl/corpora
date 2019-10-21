@@ -9,10 +9,9 @@ detok() {
         python detok.py < $f
     done
 }
+d=mix3.$nwp
 train=$d/train.tsv
 dev=$d/dev.tsv
-nwp=$((nwp-devwp))
-d=mix3.$nwp
 ln -sf $d mix3
 mkdir -p $d
 set -x
