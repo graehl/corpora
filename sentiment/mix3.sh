@@ -5,7 +5,9 @@ nwptotal=$((nwp+devwp))
 ./sst3.sh
 [[ -d imdb ]] || python ./imdb.py
 detok() {
-    python detok.py
+    for f in "$@"; do
+        python detok.py < $f
+    done
 }
 train=$d/train.tsv
 dev=$d/dev.tsv
