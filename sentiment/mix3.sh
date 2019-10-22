@@ -8,7 +8,7 @@ nlines() {
     perl -ne '++$n;END{print "$n"}' "$@"
 }
 nwptotal=$((nwp+devwp))
-if [[ $nwptotal -lt 100000 ]] ; then
+if [[ $devwp -gt 0 && $nwptotal -lt 100000 ]] ; then
     nwptotal=100000
 fi
 ./sst3.sh
@@ -24,7 +24,7 @@ mkdir -p $d
 set -x
 wpf=`../wiki/wiki-first.sh $nwptotal`
 echo $wpf
-[[ -d semeval17 ]] || ./semeval17.sh
+./semeval17.sh
 ( cat semeval17/train.tsv
  detok imdb/train.tsv
  cat sst3/train.tsv
