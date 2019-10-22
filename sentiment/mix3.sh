@@ -8,6 +8,9 @@ nlines() {
     perl -ne '++$n;END{print "$n"}' "$@"
 }
 nwptotal=$((nwp+devwp))
+if [[ $nwptotal -lt 100000 ]] ; then
+    nwptotal=100000
+fi
 ./sst3.sh
 [[ -d imdb ]] || python ./imdb.py
 detok() {
