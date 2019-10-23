@@ -26,7 +26,7 @@ def main(ntrain=10284, ndev=-1):
             if ndev > 0: ndev -= 1
             if ndev == 0: break
         nlabel = 2 if label == 'neutral' else 1 if label == 'positive' else 0
-        print(text, '\t', nlabel, file=outf)
+        outf.write('%s\t%s\n' % (text, nlabel)
 
 if __name__ == "__main__":
     plac.call(main)
