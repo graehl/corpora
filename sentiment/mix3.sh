@@ -21,7 +21,7 @@ fi
 detok() {
     cat "$@" | python detok.py
 }
-d=mix3
+d=mix3.w$nwiki-$devwiki.i$nimdb-$devimdb.t$ntweets-$devtweets.f$nfin-$devfin.s$nsst-$devsst
 train=$d/train.tsv
 dev=$d/dev.tsv
 ln -sf $d mix3
