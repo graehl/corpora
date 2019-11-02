@@ -1,5 +1,3 @@
-d=mix3.w$nwiki-$devwiki.i$nimdb-$devimdb.t$ntweets-$devtweets.f$nfin-$devfin.s$nsst-$devsst
-echo $d
 export PYTHONIOENCODING=utf-8
 nwiki=${nwiki:-10000}
 devwiki=${devwiki:-0}
@@ -11,6 +9,8 @@ nfin=${nfin:-1000}
 devfin=${devfin:-142}
 nsst=${nsst:-0}
 devsst=${devsst:-0}
+d=mix3.w$nwiki-$devwiki.i$nimdb-$devimdb.t$ntweets-$devtweets.f$nfin-$devfin.s$nsst-$devsst
+echo $d
 nlines() {
     perl -ne '++$n;END{print "$n"}' "$@"
 }

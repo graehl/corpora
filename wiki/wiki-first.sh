@@ -3,7 +3,7 @@ o=wiki-first.$n.txt
 nlines() {
     perl -ne '++$n;END{print "$n"}' "$@"
 }
-if ! [[ -f $o || $(nlines $o) -lt "$n" ]] ; then
+if [[ ! -f $o || $(nlines $o) -lt "$n" ]] ; then
     if [[ $n -le 100000 ]] ; then
         [[ -d sentiment-mixes ]] || git clone https://github.com/graehl/sentiment-mixes.git
         (cd sentiment-mixes; git pull)
