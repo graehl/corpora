@@ -21,7 +21,7 @@ fi
 detok() {
     cat "$@" | python detok.py
 }
-d=mix3.$nwiki
+d=mix3
 train=$d/train.tsv
 dev=$d/dev.tsv
 ln -sf $d mix3
@@ -39,5 +39,6 @@ echo $wikif
 (cat semeval17/dev.tsv | head -n $devtweets
  cat imdb/dev.tsv | head -n $devimdb | detok
  cat sst3/dev.tsv | head -n $devsst
+  cat semfin2/dev.tsv | head -n $devfin
  cat $wikif | tail -n $devwiki
 ) > $dev
