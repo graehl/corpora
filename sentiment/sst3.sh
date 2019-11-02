@@ -1,5 +1,9 @@
-pip install pytreebank
-pip install plac
+pip install --upgrade plac
 pip install --upgrade nltk
 python -m nltk.downloader treebank
-[[ -d sst3 ]] || python ./download_sst.py -l 40 -n True -o sst3 -t True
+if [[ -d sst3 ]] ; then
+    ls sst3
+else
+    pip install --upgrade pytreebank
+    python ./download_sst.py -l 40 -n True -o sst3 -t True
+fi

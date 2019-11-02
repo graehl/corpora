@@ -1,9 +1,14 @@
 export PYTHONIOENCODING=utf-8
-nwp=${1:-10000}
-devwp=${2:-1000}
-devimdb=${3:-5000}
-ntweets=${4:-10000}
-devtweets=${5:-1000}
+nwp=${nwp:-10000}
+devwp=${devwp:-0}
+nimdb=${nimdb:-0}
+devimdb=${devimdb:-0}
+ntweets=${ntweets:-100}
+devtweets=${devtweets:-0}
+nfin=${nfin:-1000}
+devfin=${devfin:-100}
+nsst=${nsst:-0}
+devsst=${devsst:-0}
 nlines() {
     perl -ne '++$n;END{print "$n"}' "$@"
 }
@@ -25,9 +30,13 @@ set -x
 wpf=`../wiki/wiki-first.sh $nwptotal`
 echo $wpf
 ./semeval17.sh
-( cat semeval17/train.tsv
- detok imdb/train.tsv
- cat sst3/train.tsv
+./semfin.sh
+( cat semeval17/train.tsv | head -n $ntweets
+  cat semfin2/train.tsv | head -n $nfin
+ cat imdb/train.tsv | head -n $nimdb | detok
+ cat sst3/train.tsv | head -n $nsst
  head -n $nwp < $wpf | perl -pe 'while(<>) { chomp; print "$_\t2\n" }' ) > $train
-(cat semeval17/dev.tsv; head -n $devimdb < imdb/dev.tsv | detok ; cat sst3/dev.tsv) > $dev
+(cat semeval17/dev.tsv | head -n $devtweets
+ cat imdb/dev.tsv | head -n $devimdb | detok
+ cat sst3/dev.tsv | head -n $devsst) > $dev
 # ; tail -n $devwp < $wpf

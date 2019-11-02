@@ -4,6 +4,9 @@ import sys
 import plac
 import json
 
+def log(x):
+    sys.stderr.write('INFO: %s\n' % str(x))
+
 @plac.annotations(
     ntrain=("max training lines", "option", "t", int),
     ndev=("max dev lines if >0", "option", "d", int),
