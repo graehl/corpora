@@ -30,6 +30,7 @@ mkdir -p $d
 set -x
 wikif=`../wiki/wiki-first.sh $nwikitotal`
 echo $wikif
+ls -l $wikif
 ./semeval17.sh
 ./semfin.sh
 wc -l semeval17/train.tsv  semfin2/train.tsv imdb/train.tsv sst3/train.tsv $wikif
