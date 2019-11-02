@@ -1,3 +1,5 @@
+d=mix3.w$nwiki-$devwiki.i$nimdb-$devimdb.t$ntweets-$devtweets.f$nfin-$devfin.s$nsst-$devsst
+echo $d
 export PYTHONIOENCODING=utf-8
 nwiki=${nwiki:-10000}
 devwiki=${devwiki:-0}
@@ -21,7 +23,6 @@ fi
 detok() {
     cat "$@" | python detok.py
 }
-d=mix3.w$nwiki-$devwiki.i$nimdb-$devimdb.t$ntweets-$devtweets.f$nfin-$devfin.s$nsst-$devsst
 train=$d/train.tsv
 dev=$d/dev.tsv
 ln -sf $d mix3
@@ -31,11 +32,12 @@ wikif=`../wiki/wiki-first.sh $nwikitotal`
 echo $wikif
 ./semeval17.sh
 ./semfin.sh
+wc -l semeval17/train.tsv  semfin2/train.tsv imdb/train.tsv sst3/train.tsv $wikif
 ( cat semeval17/train.tsv | head -n $ntweets
   cat semfin2/train.tsv | head -n $nfin
  cat imdb/train.tsv | head -n $nimdb | detok
  cat sst3/train.tsv | head -n $nsst
- head -n $nwiki < $wikif | perl -pe 'while(<>) { chomp; print "$_\t2\n" }' ) > $train
+ cat $wikif | head -n $nwiki | perl -pe 'while(<>) { chomp; print "$_\t2\n" }' ) > $train
 (cat semeval17/dev.tsv | head -n $devtweets
  cat imdb/dev.tsv | head -n $devimdb | detok
  cat sst3/dev.tsv | head -n $devsst
