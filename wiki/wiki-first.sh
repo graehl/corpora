@@ -6,7 +6,7 @@ nlines() {
 if [[ ! -f $o || $(nlines $o) -lt "$n" ]] ; then
     if [[ $n -le 100000 ]] ; then
         [[ -d sentiment-mixes ]] || git clone https://github.com/graehl/sentiment-mixes.git
-        (cd sentiment-mixes; git pull)
+        (cd sentiment-mixes; git pull >/dev/null)
         head -n $n < sentiment-mixes/wiki/wiki-first.100000.txt > $o
     else
         `dirname $0`/head-wikitext.sh $((n/50)) --minlen 80 --first True | head -n $n > $o.tmp && mv $o.tmp $o
