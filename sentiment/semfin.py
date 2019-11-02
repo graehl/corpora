@@ -18,6 +18,7 @@ def main(ntrain=1000, ndev=-1, pos=0.3, neg=-.3):
     data = json.load(sys.stdin)
     outfn = 'train.tsv'
     outf = open(outfn, 'w', encoding='utf-8')
+    log('%s headlines' % len(data))
     for ts in data:
         if n < ntrain:
             n += 1
