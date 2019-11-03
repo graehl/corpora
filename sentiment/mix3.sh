@@ -27,8 +27,9 @@ detok() {
 }
 train=$d/train.tsv
 dev=$d/dev.tsv
-ln -sf $d mix3
 mkdir -p $d
+rm -f mix3
+ln -sf $d mix3
 set -x
 wikif=`../wiki/wiki-first.sh $nwikitotal`
 echo $wikif
@@ -38,15 +39,15 @@ ls -l $wikif
 ./semfin1.sh
 wc -l semeval17/train.tsv  semfin2/train.tsv imdb/train.tsv sst3/train.tsv $wikif
 ( cat semeval17/train.tsv | head -n $ntweets
-  cat semfin2/train.tsv | head -n $nfin
   cat semfin1/train.tsv | head -n $nfin1
+  cat semfin2/train.tsv | head -n $nfin
  cat imdb/train.tsv | head -n $nimdb | detok
  cat sst3/train.tsv | head -n $nsst
  cat $wikif | head -n $nwiki | perl -pe 'while(<>) { chomp; print "$_\t2\n" }' ) > $train
 (cat semeval17/dev.tsv | head -n $devtweets
  cat imdb/dev.tsv | head -n $devimdb | detok
  cat sst3/dev.tsv | head -n $devsst
-  cat semfin2/dev.tsv | head -n $devfin
   cat semfin1/dev.tsv | head -n $devfin1
+  cat semfin2/dev.tsv | head -n $devfin
  cat $wikif | tail -n $devwiki
 ) > $dev
