@@ -29,8 +29,8 @@ def main(ntrain=1000, ndev=-1, pos=0.3, neg=-.3):
                 outf = open(outfn, 'w', encoding='utf-8')
             if ndev > 0: ndev -= 1
             if ndev == 0: break
-        text = ts["title"]
-        s = float(ts["sentiment"])
+        text = ts["title"] if "title" in ts else " ".join(ts["spans"])
+        s = float(ts["sentiment"] if "sentiment" in ts else ts["sentiment score"])
         nlabel = '1' if s >= pos else '0' if s < neg else '2'
         outf.write('%s\t%s\n' % (text, nlabel))
 
