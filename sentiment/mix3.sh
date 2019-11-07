@@ -35,7 +35,7 @@ wikif=`../wiki/wiki-first.sh $nwikitotal`
 echo $wikif
 ls -l $wikif
 ./semeval17.sh
-./semfin.sh
+./semfin2.sh
 ./semfin1.sh
 wc -l semeval17/train.tsv  semfin2/train.tsv imdb/train.tsv sst3/train.tsv $wikif
 ( cat semeval17/train.tsv | head -n $ntweets
