@@ -11,7 +11,7 @@ def log(x):
     sys.stderr.write('INFO: %s\n' % str(x))
 
 
-blanks = re.compile(r' +')
+blanks = re.compile(r'\s+')
 doc = re.compile('^(?:</doc>|<doc id=.*title="([^"]+)".*)$')
 @plac.annotations(
     minlen=("min length in chars", "option", "l", int),
